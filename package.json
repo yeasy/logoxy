@@ -1,0 +1,31 @@
+{
+  "name": "logoxy",
+  "version": "0.0.1",
+  "description": "Simple restful log proxy",
+  "main": "server.js",
+  "dependencies": {
+    "restify": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.4.0",
+    "eslint-config-google": "^0.6.0"
+  },
+  "scripts": {
+    "test": "echo \"todo\"",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeasy/logoxy.git"
+  },
+  "keywords": [
+    "log",
+    "proxy"
+  ],
+  "author": "yeasy@github.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeasy/logoxy/issues"
+  },
+  "homepage": "https://github.com/yeasy/logoxy#readme"
+}
