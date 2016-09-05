@@ -1,6 +1,20 @@
 # logoxy
 Simple log query proxy.
 
+## Installation
+
+### Use Container
+
+```sh
+$ bash start.sh
+```
+
+### Local Installation
+
+```sh
+$ npm install
+$ npm start
+```
 
 ## Usage
 
