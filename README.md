@@ -55,20 +55,21 @@ $ curl logoxy:8080/v1/log?cluster_id= 57bd5b33414b050c55051e12&log_type=peer&nod
     "cluster_id": " 57bd5b33414b050c55051e12",
     "log_type": "peer",
     "node_name": "vp0",
-    "since_ts": "2016-09-06T00:33:04.724Z",
-    "log_size": 283486,
+    "since_ts": "2016-09-06T00:37:30.637Z",
+    "log_size": 2,
+    "size": 2,
     "logs": [
       {
-        "timestamp": "2016-09-06T05:32:10Z",
+        "timestamp": "2016-09-06T05:36:30Z",
         "log_level": "DEBU",
         "module": "peer",
-        "log_data": "Sending message to stream of type: DISC_HELLO \n"
+        "log_data": "Received PeersMessage with Peers: peers:<ID:<name:\"vp2\" > address:\"172.19.0.17:30303\" type:VALIDATOR > peers:<ID:<name:\"vp5\" > address:\"172.19.0.16:30303\" type:VALIDATOR > peers:<ID:<name:\"vp3\" > address:\"172.19.0.19:30303\" type:VALIDATOR > peers:<ID:<name:\"vp1\" > address:\"172.19.0.21:30303\" type:VALIDATOR > peers:<ID:<name:\"vp0\" > address:\"172.19.0.18:30303\" type:VALIDATOR > \n"
       },
       {
-        "timestamp": "2016-09-06T05:32:10Z",
+        "timestamp": "2016-09-06T05:36:30Z",
         "log_level": "DEBU",
         "module": "peer",
-        "log_data": "Sending message to stream of type: DISC_HELLO \n"
+        "log_data": "Handling Message of type: DISC_PEERS \n"
       }
     ]
   }
