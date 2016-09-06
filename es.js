@@ -86,12 +86,16 @@ exports.query = function(req, res, next) {
       var lists = [];
       var rawLog;
       var processedLog;
+      result.data.cluster_id = clusterId;
+      result.data.log_type = logType;
+      result.data.node_name = nodeName;
+      result.data.since_ts = sinceTs;
+      result.data.log_size = logSize;
+      result.data.size = hits.length;
 
       for (var i = 0; i < hits.length; i++) {
         rawLog = hits[i]._source;
         processedLog = {
-          log_type: rawLog.log_type,
-          node_name: rawLog.node_name,
           timestamp: rawLog.timestamp,
           log_level: rawLog.log_level,
           module: rawLog.module,
@@ -99,7 +103,7 @@ exports.query = function(req, res, next) {
         };
         lists.push(processedLog);
       }
-      result.data = lists;
+      result.data.logs = lists;
     } else {
       result.code = 1;
       result.message = err;
