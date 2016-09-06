@@ -14,34 +14,50 @@ var result = {
 
 exports.query = function(req, res, next) {
   // console.log(req.params);
-  var clusterId = req.params.cluster_id;
-  var logType = req.params.log_type;
-  var nodeName = req.params.node_name;
+  var clusterId = req.params.cluster_id || null;
+  var logType = req.params.log_type || 'peer';
+  var nodeName = req.params.node_name || 'vp0';
   var logSize = parseInt(req.params.log_size, 10) || cfg.log.size;
+  var sinceTs = req.params.since_ts || null;
 
-  var lastTs = req.params.last_ts;
+  if (clusterId === null) {
+    console.log("clusterId === null");
+    result.code = 1;
+    result.message = "Unkown cluster_id in params";
+    res.send(result);
+    return next();
+  }
+
+  if (sinceTs === null) {
+    sinceTs = new Date();
+    sinceTs.setUTCHours(0);
+    sinceTs = sinceTs.toISOString();
+    console.log(sinceTs);
+  }
 
   var client = restify.createJsonClient({
-    url: 'http://' + cfg.es.server + ':' + cfg.es.port,
+    url: 'http://' + cfg.es.server,
     accept: 'application/json',
     requestTimeout: 3000
   });
 
+  var filter = [
+    {match: {log_type: logType}},
+    {match: {cluster_id: clusterId}},
+    {match: {log_type: logType}},
+    {match: {node_name: nodeName}}
+  ];
+
   var args = {
     query: {
       bool: {
-        must: [
-          {match: {log_type: logType}},
-          {match: {cluster_id: clusterId}},
-          {match: {log_type: logType}},
-          {match: {node_name: nodeName}}
-        ]
+        must: filter
       }
     },
     filter: {
       range: {
         timestamp: {
-          gt: lastTs
+          gt: sinceTs
         }
       }
     },
@@ -55,7 +71,7 @@ exports.query = function(req, res, next) {
     ]
   };
 
-  var url = '/logstash-' + lastTs.substr(0, 10).split('-').join('.') +
+  var url = '/logstash-' + sinceTs.substr(0, 10).split('-').join('.') +
     '/syslog/_search?';
 
   client.post(url, args, function(err, req, resp, obj) {

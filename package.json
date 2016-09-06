@@ -8,11 +8,13 @@
   },
   "devDependencies": {
     "eslint": "^3.4.0",
-    "eslint-config-google": "^0.6.0"
+    "eslint-config-google": "^0.6.0",
+    "nodemon": "^1.10.2"
   },
   "scripts": {
-    "test": "echo \"todo\"",
-    "start": "node server.js"
+    "test": "echo 'Todo'",
+    "start": "node server.js",
+    "start-dev": "nodemon"
   },
   "repository": {
     "type": "git",

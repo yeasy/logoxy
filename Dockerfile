@@ -8,8 +8,6 @@ EXPOSE 8080
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN npm install nodemon -g
-
 # Install app dependencies
 COPY package.json /usr/src/app/
 RUN npm install
@@ -17,6 +15,4 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-CMD [ "nodemon" ]
-
-#CMD [ "npm", "start" ]
+CMD [ "npm", "start" ]
