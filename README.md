@@ -55,6 +55,7 @@ $ curl logoxy:8080/v1/log?cluster_id= 57bd5b33414b050c55051e12&log_type=peer&nod
     "log_type": "peer",
     "node_name": "vp0",
     "since_ts": "2016-09-06T00:37:30.637Z",
+    "latest_ts": "2016-09-06T05:36:30Z",
     "log_size": 2,
     "size": 2,
     "logs": [

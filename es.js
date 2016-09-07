@@ -65,6 +65,7 @@ exports.query = function(req, res, next) {
       {
         "@timestamp": {
           order: "desc"
+          // order: "asc"
         }
       }
     ]
@@ -88,10 +89,11 @@ exports.query = function(req, res, next) {
       var lists = [];
       var rawLog;
       var processedLog;
-      result.data.cluster_id = clusterId;
-      result.data.log_type = logType;
-      result.data.node_name = nodeName;
+      // result.data.cluster_id = clusterId;
+      // result.data.log_type = logType;
+      // result.data.node_name = nodeName;
       result.data.since_ts = sinceTs;
+      result.data.latest_ts = sinceTs;
       result.data.log_size = logSize;
       result.data.size = hits.length;
 
@@ -105,12 +107,16 @@ exports.query = function(req, res, next) {
         };
         lists.push(processedLog);
       }
+      if (lists.length > 0) {
+        // console.log("not empty", lists[0].timestamp);
+        result.data.latest_ts = lists[0].timestamp;
+      }
       result.data.logs = lists;
     } else {
       result.code = 1;
       result.message = err;
     }
     res.send(result);
-    next();
+    return next();
   });
 };
