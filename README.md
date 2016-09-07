@@ -17,7 +17,7 @@ $ docker run \
 For development.
 
 ```sh
-$ bash start.sh
+$ bash debug.sh
 ```
 
 ### Local Installation
