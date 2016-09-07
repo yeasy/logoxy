@@ -77,7 +77,7 @@ $ curl logoxy:8080/v1/log?cluster_id= 57bd5b33414b050c55051e12&log_type=peer&nod
 
 
 ## Debug
-Start the container with mapping your local code, and install and run `nodemon` inside.
+Start the container with mapping your local code, and run `nodemon` as default command.
 
 ```sh
 $ docker run \
@@ -86,7 +86,5 @@ $ docker run \
     -e LOGOXY_ES_SERVER="192.168.7.60:9200" \
     -p 8080:8080 \
     -v Your_CODE:/usr/src/app
-    yeasy/logoxy bash
-# npm install -g nodemon
-# nodemon
+    yeasy/logoxy nodemon
 ```

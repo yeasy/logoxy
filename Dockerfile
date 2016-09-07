@@ -15,4 +15,7 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
+# Only to support development
+RUN npm install -g nodemon
+
 CMD [ "npm", "start" ]
