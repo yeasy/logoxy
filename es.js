@@ -6,11 +6,7 @@ var restify = require('restify');
 
 var cfg = require('./config');
 
-var result = {
-  code: 0,
-  message: '',
-  data: {}
-};
+
 
 exports.query = function(req, res, next) {
   // console.log(req.params);
@@ -19,6 +15,15 @@ exports.query = function(req, res, next) {
   var nodeName = req.params.node_name || 'vp0';
   var logSize = parseInt(req.params.log_size, 10) || cfg.log.size;
   var sinceTs = req.params.since_ts || null;
+  if (logSize > 20) {
+    logSize = 20;
+  }
+
+  var result = {
+    code: 0,
+    message: '',
+    data: {}
+  };
 
   if (clusterId === null) {
     console.log("clusterId === null");
@@ -31,14 +36,19 @@ exports.query = function(req, res, next) {
   if (sinceTs === null) {
     sinceTs = new Date();
     sinceTs.setUTCHours(0);
+    sinceTs.setUTCMinutes(0);
+    sinceTs.setUTCSeconds(0);
     sinceTs = sinceTs.toISOString();
-    console.log(sinceTs);
   }
 
   var client = restify.createJsonClient({
     url: 'http://' + cfg.es.server,
     accept: 'application/json',
-    requestTimeout: 3000
+    connectTimeout: 3000,
+    requestTimeout: 3000,
+    retry: {
+      retries: 3
+    }
   });
 
   var filter = [
@@ -115,6 +125,7 @@ exports.query = function(req, res, next) {
     } else {
       result.code = 1;
       result.message = err;
+      console.log(err);
     }
     res.send(result);
     return next();
