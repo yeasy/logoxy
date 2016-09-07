@@ -6,8 +6,6 @@ var restify = require('restify');
 
 var cfg = require('./config');
 
-
-
 exports.query = function(req, res, next) {
   // console.log(req.params);
   var clusterId = req.params.cluster_id || null;
