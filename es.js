@@ -44,7 +44,6 @@ exports.query = function(req, res, next) {
   var filter = [
     {match: {log_type: logType}},
     {match: {cluster_id: clusterId}},
-    {match: {log_type: logType}},
     {match: {node_name: nodeName}}
   ];
 
@@ -71,13 +70,16 @@ exports.query = function(req, res, next) {
     ]
   };
 
-  var url = '/logstash-' + sinceTs.substr(0, 10).split('-').join('.') +
-    '/syslog/_search?';
+  var index = sinceTs.substr(0, 10).split('-').join('.');
+
+  // console.log(index, clusterId, logType, nodeName, sinceTs, logSize);
+
+  var url = '/logstash-' + index + '/syslog/_search?';
 
   client.post(url, args, function(err, req, resp, obj) {
     // parsed response body as js object
     // console.log('%d -> %j', res.statusCode, res.headers);
-    // console.log('%j', obj.hits);
+    // console.log('%j', obj);
 
     if (err === null) {
       // var itemCount = data2.hits.total;  // total records that match
@@ -109,7 +111,6 @@ exports.query = function(req, res, next) {
       result.message = err;
     }
     res.send(result);
+    next();
   });
-
-  return next();
 };
