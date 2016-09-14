@@ -6,12 +6,7 @@ Simple log query proxy, query latest logs with given filter from ES.
 ### Use Container
 
 ```sh
-$ docker run \
-    --rm \
-    --restart="unless-stopped" \
-    -e LOGOXY_ES_SERVER="192.168.7.60:9200" \
-    -p 8080:8080 \
-    yeasy/logoxy
+$ bash start.sh [ES_URL]
 ```
 
 For development.

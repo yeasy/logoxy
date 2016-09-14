@@ -12,7 +12,7 @@ server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-// GET /restful/api/v2/cluster/monitor/log?cluster_id={cluster_id}&log_type=peer&node_id=vp3&log_size=10&gt=2016-08-25T04:09:02Z
+// GET :8080/v1/log?cluster_id={cluster_id}&log_type=peer&node_id=vp3&log_size=10&gt=2016-08-25T04:09:02Z
 server.get('/v1/log', es.query);
 
 server.listen(8080, function() {
